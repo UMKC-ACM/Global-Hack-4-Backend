@@ -72,10 +72,20 @@ api = [(mkVersion 1 0 0, Some1 blog)]
 handle:: ServerPartT IO Response
 handle = apiToHandler' liftIO api
 
+myParseConfig:: [String] -> Either String Conf
+myParseConfig args = if (length args == 1) then Right (portConf ( read $ args !! 0)) else Left "Specify port"
+
+portConf inPort = Conf { port = inPort, validator = Nothing, logAccess = Just logMAccess, timeout = 30}
+
 main = do
   --args <- getArgs
   --if (length args > 0) then do -- if there are args we want fancy output
    --config <- Gen.configFromArgs "test-backend"
    --Gen.generate config "TestBackend" api [] [] []
    --else
-       simpleHTTP nullConf handle
+   args <- getArgs
+   let config = myParseConfig args
+   spawnServer config	
+	where   spawnServer (Left str) = print str
+		spawnServer (Right conf) = simpleHTTP conf handle		
+

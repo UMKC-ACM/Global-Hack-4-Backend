@@ -19,6 +19,9 @@ import Control.Applicative
 import Control.Monad.IO.Class (liftIO)
 import Happstack.Server.SimpleHTTP
 import Text.XML.HXT.Arrow.Pickle
+import System.Environment
+import qualified Rest.Gen as Gen
+import qualified Rest.Gen.Config as Gen
 import qualified Rest.Resource as R
 
 postResource:: Resource IO (ReaderT String IO) String () Void
@@ -69,4 +72,10 @@ api = [(mkVersion 1 0 0, Some1 blog)]
 handle:: ServerPartT IO Response
 handle = apiToHandler' liftIO api
 
-main = simpleHTTP nullConf handle
+main = do
+  args <- getArgs
+  if (length args > 0) then do -- if there are args we want fancy output
+   config <- Gen.configFromArgs "test-backend"
+   Gen.generate config "TestBackend" api [] [] []
+   else
+       simpleHTTP nullConf handle

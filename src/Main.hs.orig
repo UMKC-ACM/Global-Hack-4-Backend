@@ -3,7 +3,6 @@
              DeriveGeneric #-}
 module Main where
 
-{--
 import Rest
 import Rest.Api
 import Data.Aeson
@@ -84,10 +83,13 @@ main = do
    --config <- Gen.configFromArgs "test-backend"
    --Gen.generate config "TestBackend" api [] [] []
    --else
+<<<<<<< HEAD
    args <- getArgs
    let config = myParseConfig args
    spawnServer config	
 	where   spawnServer (Left str) = print str
 		spawnServer (Right conf) = simpleHTTP conf handle		
---}
-main = print "ugh this is a pita"
+
+=======
+       simpleHTTP nullConf handle
+>>>>>>> 2f12853567be3b06ce8545c219d7850648648725

@@ -19,10 +19,10 @@ executable test-backend
   -- other-modules:       
   -- other-extensions:    
   build-depends:       base,
-                       rest-core,
-                       rest-happstack,
-                       aeson,
-                       json-schema
+                       rest-core
+                       --rest-happstack,
+                       --aeson,
+                       --json-schema
                        --happstack-server,
                        --transformers,
                        --mtl,

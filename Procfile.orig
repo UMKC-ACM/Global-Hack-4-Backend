@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-web: cabal run -- $PORT
-=======
-web: cabal run -- -p $PORT
->>>>>>> 2f12853567be3b06ce8545c219d7850648648725

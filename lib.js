@@ -1,5 +1,4 @@
-Preprocessing executable 'test-backend' for test-backend-0.1.0.0...
-Running test-backend...
+
 (function (window) {
 
 // in nodejs, global is an object

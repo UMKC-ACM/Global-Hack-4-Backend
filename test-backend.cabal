@@ -20,10 +20,10 @@ executable test-backend
   -- other-extensions:    
   build-depends:       base,
                        rest-core,
-                       rest-happstack,
+                       rest-snap,
                        aeson,
                        json-schema,
-                       happstack-server==7.4.0,
+                       snap-core,
                        transformers,
                        mtl,
                        generic-xmlpickler,

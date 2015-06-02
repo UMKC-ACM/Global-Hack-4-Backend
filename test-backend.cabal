@@ -23,7 +23,7 @@ executable test-backend
                        rest-happstack,
                        aeson,
                        json-schema,
-                       happstack-server,
+                       happstack-server==7.4.0,
                        transformers,
                        mtl,
                        generic-xmlpickler,

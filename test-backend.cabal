@@ -23,7 +23,7 @@ executable test-backend
                        rest-snap,
                        aeson,
                        json-schema,
-                       snap-core,
+                       snap-server,
                        transformers,
                        mtl,
                        generic-xmlpickler,

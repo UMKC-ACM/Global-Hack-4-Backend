@@ -74,7 +74,7 @@ api = [(mkVersion 1 0 0, Some1 blog)]
 resthandle = apiToHandler' liftIO api
 
 statichandle:: Core.Snap ()
-statichandle = Core.route [("", serveDirectory "static")]
+statichandle = Core.route [("", serveDirectory "www")]
 
 handle = statichandle <|> resthandle
 

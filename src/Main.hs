@@ -21,6 +21,7 @@ import Snap.Http.Server
 import Text.XML.HXT.Arrow.Pickle
 import System.Environment
 import Snap.Util.FileServe
+import qualified Snap.Core as Core
 --import qualified Rest.Gen as Gen
 --import qualified Rest.Gen.Config as Gen
 import qualified Rest.Resource as R
@@ -72,7 +73,8 @@ api = [(mkVersion 1 0 0, Some1 blog)]
 
 resthandle = apiToHandler' liftIO api
 
-statichandle = serveDirectory "./static/"
+statichandle:: Core.Snap ()
+statichandle = Core.route [("", serveDirectory "static")]
 
 handle = statichandle <|> resthandle
 

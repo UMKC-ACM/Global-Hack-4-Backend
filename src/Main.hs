@@ -20,6 +20,7 @@ import Control.Monad.IO.Class (liftIO)
 import Snap.Http.Server
 import Text.XML.HXT.Arrow.Pickle
 import System.Environment
+import Snap.Util.FileServe
 --import qualified Rest.Gen as Gen
 --import qualified Rest.Gen.Config as Gen
 import qualified Rest.Resource as R
@@ -69,8 +70,11 @@ blog = root -/ (route postResource)
 api:: Api IO
 api = [(mkVersion 1 0 0, Some1 blog)]
 
-handle = apiToHandler' liftIO api
+resthandle = apiToHandler' liftIO api
 
+statichandle = serveDirectory "./static/"
+
+handle = statichandle <|> resthandle
 
 main = do
   quickHttpServe handle

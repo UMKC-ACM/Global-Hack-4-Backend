@@ -8,7 +8,7 @@ import Rest.Api
 import Data.Aeson
 import qualified Data.JSON.Schema.Types as T
 import Control.Monad.Reader
-import Rest.Driver.Happstack
+import Rest.Driver.Snap
 import Generics.XmlPickler
 import Data.Monoid
 import GHC.Generics
@@ -17,8 +17,13 @@ import Control.Monad
 import Data.Functor
 import Control.Applicative
 import Control.Monad.IO.Class (liftIO)
-import Happstack.Server.SimpleHTTP
+import Snap.Http.Server
 import Text.XML.HXT.Arrow.Pickle
+import System.Environment
+import Snap.Util.FileServe
+import qualified Snap.Core as Core
+--import qualified Rest.Gen as Gen
+--import qualified Rest.Gen.Config as Gen
 import qualified Rest.Resource as R
 
 postResource:: Resource IO (ReaderT String IO) String () Void
@@ -66,7 +71,13 @@ blog = root -/ (route postResource)
 api:: Api IO
 api = [(mkVersion 1 0 0, Some1 blog)]
 
-handle:: ServerPartT IO Response
-handle = apiToHandler' liftIO api
+resthandle = apiToHandler' liftIO api
 
-main = simpleHTTP nullConf handle
+statichandle:: Core.Snap ()
+statichandle = Core.route [("", serveFile "www/index.html"),
+			   ("", serveDirectory "www")]
+
+handle = statichandle <|> resthandle
+
+main = do
+  quickHttpServe handle

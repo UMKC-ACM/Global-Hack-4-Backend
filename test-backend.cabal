@@ -6,7 +6,6 @@ version:             0.1.0.0
 -- synopsis:            
 -- description:         
 -- license:             
-license-file:        LICENSE
 author:              Chris Denniston
 maintainer:          octopuscabbage@gmail.com
 -- copyright:           
@@ -21,11 +20,12 @@ executable test-backend
   -- other-extensions:    
   build-depends:       base,
                        rest-core,
-                       rest-happstack,
+                       rest-snap,
+                       --rest-stringmap==0.2.0.4,
                        aeson,
                        json-schema,
-                       rest-happstack,
-                       happstack-server,
+                       snap-server,
+                       snap-core,
                        transformers,
                        mtl,
                        generic-xmlpickler,
